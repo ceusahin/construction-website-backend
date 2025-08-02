@@ -48,4 +48,10 @@ public class Project {
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
 
+    @Column(name = "image_url")
+    private String imageUrl;
+
+    @Column(name = "public_id")
+    private String publicId;
+
 }
