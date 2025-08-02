@@ -9,7 +9,6 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/social-media")
-@CrossOrigin(origins = "http://localhost:5173")
 public class SocialMediaSettingController {
 
     @Autowired
