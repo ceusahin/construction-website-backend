@@ -1,9 +1,6 @@
 package com.example.contruction.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -11,7 +8,8 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "company_info", schema = "construction")
+@Table(name = "company_info", schema = "construction",
+    uniqueConstraints = @UniqueConstraint(columnNames = {"language"}))
 @Entity
 public class CompanyInfo {
     @Id
@@ -23,4 +21,7 @@ public class CompanyInfo {
 
     @Column(name = "company_description")
     private String companyDescription;
+
+    @Column(name = "language", nullable = false)
+    private String language;
 }

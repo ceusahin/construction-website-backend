@@ -1,0 +1,27 @@
+package com.example.contruction.entity;
+
+import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import java.util.ArrayList;
+import java.util.List;
+
+
+@Entity
+@Table(name = "footer_menu", schema = "construction")
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+public class FooterMenu {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    private String language;
+    private String title;
+
+    @OneToMany(mappedBy = "menu", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<FooterMenuItem> items = new ArrayList<>();
+}

@@ -1,6 +1,5 @@
 package com.example.contruction.controller;
 
-
 import com.example.contruction.entity.CompanyInfo;
 import com.example.contruction.service.CompanyInfoService;
 import org.springframework.http.ResponseEntity;
@@ -16,20 +15,35 @@ public class CompanyInfoController {
         this.service = service;
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<CompanyInfo> getCompanyInfo(@PathVariable Long id) {
-        return service.getCompanyInfo(id)
-                .map(ResponseEntity::ok)
-                .orElse(ResponseEntity.notFound().build());
-    }
-
-    @PutMapping("/{id}")
-    public ResponseEntity<CompanyInfo> updateCompanyInfo(@PathVariable Long id, @RequestBody CompanyInfo newInfo) {
+    @GetMapping("/{language}")
+    public ResponseEntity<CompanyInfo> getCompanyInfoByLanguage(@PathVariable String language) {
         try {
-            CompanyInfo updated = service.updateCompanyInfo(id, newInfo.getCompanyName(), newInfo.getCompanyDescription());
-            return ResponseEntity.ok(updated);
-        } catch (RuntimeException e) {
+            CompanyInfo info = service.getCompanyInfoByLanguage(language);
+            return ResponseEntity.ok(info);
+        } catch (Exception e) {
             return ResponseEntity.notFound().build();
         }
+    }
+
+    @PutMapping("/{language}")
+    public ResponseEntity<CompanyInfo> updateCompanyInfoByLanguage(
+            @PathVariable String language,
+            @RequestBody CompanyInfo newInfo
+    ) {
+        try {
+            CompanyInfo updated = service.updateCompanyInfoByLanguage(language, newInfo);
+            return ResponseEntity.ok(updated);
+        } catch (Exception e) {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+    @PostMapping("/{language}")
+    public ResponseEntity<CompanyInfo> createOrUpdate(
+            @PathVariable String language,
+            @RequestBody CompanyInfo newInfo
+    ) {
+        CompanyInfo saved = service.createOrUpdateByLanguage(language, newInfo);
+        return ResponseEntity.ok(saved);
     }
 }
